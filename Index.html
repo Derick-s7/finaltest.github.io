@@ -1,0 +1,2199 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saballos Cruise · Where the Ocean Meets Luxury</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS VARIABLES & RESET
+    ============================================= */
+    :root {
+      --navy:    #05071A;
+      --navy2:   #0A0E27;
+      --navy3:   #0D1535;
+      --navy4:   #111840;
+      --gold:    #C9A84C;
+      --gold2:   #E8D5A3;
+      --gold3:   #F5EDD8;
+      --muted:   #4A5a72;
+      --text:    #8899BB;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--gold2);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, width 0.3s, height 0.3s, border-color 0.3s;
+      transform: translate(-50%, -50%);
+    }
+
+    /* =============================================
+       MARQUEE
+    ============================================= */
+    .marquee {
+      background: var(--gold);
+      padding: 7px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      z-index: 200;
+    }
+    .marquee-track {
+      display: inline-block;
+      animation: marquee-scroll 25s linear infinite;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      color: var(--navy);
+      text-transform: uppercase;
+    
+    }
+    .marquee-track em { font-style: italic; }
+    .marquee-track img { height: 16px; vertical-align: middle; }
+    @keyframes marquee-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* =============================================
+       NAV
+    ============================================= */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 7, 26, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo-anchor {
+      font-size: 24px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+    .nav-logo-sub {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links a {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(232,213,163,0.55);
+      letter-spacing: 0.3px;
+      text-decoration: none;
+      padding: 8px 13px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.25s, border-color 0.25s, letter-spacing 0.25s;
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      letter-spacing: 1px;
+    }
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      min-width: 220px;
+      list-style: none;
+      background: rgba(5, 7, 26, 0.98);
+      border: 1px solid rgba(201,168,76,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+      z-index: 300;
+    }
+    .nav-links li:hover .nav-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav-dropdown li { width: 100%; }
+    .nav-dropdown a {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold2);
+      letter-spacing: 0.5px;
+      padding: 10px 12px;
+      border-bottom: 0;
+      border-left: 2px solid transparent;
+      transition: border-left-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-dropdown a:hover {
+      border-left-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      color: var(--gold3);
+      letter-spacing: 0.6px;
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #03050F 0%, #0A1628 45%, #081222 100%);
+    }
+
+    /* Scanlines retro effect */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Grain overlay */
+    .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Video tag styles */
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .hero-video-wrap video,
+    .hero-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.38;
+      pointer-events: none;
+      border: 0;
+    }
+    .yt-bg-frame {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto;
+      object-fit: cover;
+      opacity: 0.38;
+      pointer-events: none;
+      border: 0;
+    }
+    .hero-video-note {
+      position: absolute;
+      top: 16px; right: 18px;
+      z-index: 5;
+      background: rgba(5,7,26,0.75);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 6px 12px;
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .hero-video-note span {
+      display: block;
+      color: rgba(201,168,76,0.4);
+      margin-top: 2px;
+      font-size: 7px;
+    }
+
+    /* Hero play icon */
+    .hero-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -60%);
+      z-index: 3;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .hero-play-ring {
+      width: 90px; height: 90px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .about-photo-fade {
+      -webkit-mask-image: radial-gradient(
+        ellipse 80% 90% at 60% 50%,
+        black 30%, transparent 100%
+      );
+      mask-image: radial-gradient(
+        ellipse 80% 90% at 60% 50%,
+        black 30%, transparent 100%
+      );
+      opacity: 0.55;
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 45%;
+      object-fit: cover;
+      object-position: center 15%;
+    }
+    .hero-play-tri {
+      border-left: 26px solid var(--gold);
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      margin-left: 6px;
+    }
+
+    /* Promo content */
+    .hero-promo {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 80px;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 24px;
+      animation: fadeUp 1.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .promo-badge {
+      display: inline-block;
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 5px 20px;
+      margin-bottom: 18px;
+    }
+    .promo-tagline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--text);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .promo-headline {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--gold3);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .promo-headline em {
+      color: var(--gold);
+      font-style: italic;
+    }
+    .promo-fine {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: rgba(184,192,204,0.45);
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+    .promo-cta {
+      display: inline-block;
+      margin-top: 24px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 13px 36px;
+      border: none;
+      cursor: none;
+      transition: background 0.25s, transform 0.2s;
+      text-decoration: none;
+    }
+    .promo-cta:hover { background: var(--gold2); transform: translateY(-2px); }
+
+    /* Hero banner (bottom) */
+    .hero-banner {
+      position: relative;
+      z-index: 5;
+      background: rgba(5,7,26,0.88);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .banner-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+    .banner-line {
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+    }
+    .banner-name {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--gold2);
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .banner-name span { color: var(--gold); }
+    .banner-right { text-align: right; }
+    .banner-tagline {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: rgba(201,168,76,0.45);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+    .banner-scroll {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .scroll-line { width: 28px; height: 1px; background: rgba(201,168,76,0.25); }
+
+    /* =============================================
+       GOLD DIVIDER
+    ============================================= */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+    }
+
+    /* =============================================
+       SECTION LABELS
+    ============================================= */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--gold2);
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .section-title em { color: var(--gold); font-style: italic; }
+    .gold-bar { width: 40px; height: 1px; background: var(--gold); margin: 14px 0 22px; }
+
+    /* =============================================
+       QUIÉNES SOMOS
+    ============================================= */
+    #quienes-somos {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      min-height: 420px;
+    }
+    .about-visual {
+      position: relative;
+      overflow: hidden;
+      background: var(--navy3);
+      display: flex;
+      align-items: flex-end;
+      padding: 28px;
+    }
+    .about-vid-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #03091A 0%, #091830 60%, #122040 100%);
+    }
+    .about-vid-tag {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 4;
+      background: rgba(5,7,26,0.75);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 6px 12px;
+    }
+    .about-vid-tag p {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .about-vid-tag span {
+      font-size: 7px;
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 2px;
+    }
+    .about-photo-frame {
+      position: relative;
+      z-index: 3;
+      border: 1px solid rgba(201,168,76,0.4);
+      padding: 4px;
+    }
+    .about-photo-inner {
+      width: 100px;
+      height: 120px;
+      background: linear-gradient(180deg, #1A2A4A, #0D1535);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    /* REPLACE THIS with your actual photo: <img src="img/foto.jpg" style="width:100%;height:100%;object-fit:cover;"> */
+    .about-photo-placeholder {
+      font-size: 36px;
+      opacity: 0.3;
+    }
+    .about-photo-lbl {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.4);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+     .about-content {
+      position: relative;
+      padding: 56px 48px;
+      background: var(--navy2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--gold2);
+      margin-bottom: 4px;
+    }
+    .about-role {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .about-quote {
+      border-left: 2px solid var(--gold);
+      padding-left: 20px;
+      margin-bottom: 22px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--gold2);
+      line-height: 1.7;
+    }
+    .about-body {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    /* =============================================
+       MISIÓN & VISIÓN — HORIZONTAL SCROLL
+    ============================================= */
+    #mision-vision-wrapper {
+      position: relative;
+      /* Height controls how long the user scrolls in this section */
+      height: 280vh;
+    }
+    #mision-vision-sticky {
+      position: sticky;
+      top: 60px; /* below nav */
+      height: calc(100vh - 60px);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: var(--navy);
+    }
+    #mision-vision-track {
+      display: flex;
+      width: 200vw; /* two panels side by side */
+      height: 100%;
+      will-change: transform;
+    }
+    .mv-panel {
+      width: 100vw;
+      height: 100%;
+      padding: 0 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    /* Aligned: both panels at same vertical position */
+    #panel-mision {
+      position: relative;
+      overflow: visible;
+    }
+    #panel-vision  { padding-top: 60px; position: relative; overflow: visible; }
+
+    .mv-big-letter {
+      font-family: var(--font-display);
+      font-size: 180px;
+      color: rgba(201,168,76,0.04);
+      line-height: 0.8;
+      margin-bottom: -40px;
+      font-weight: 600;
+      user-select: none;
+    }
+    .mv-statement {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 300;
+      color: var(--gold2);
+      line-height: 1.65;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+    .mv-body {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text);
+      line-height: 2;
+      max-width: 520px;
+    }
+    .mv-mision-media {
+      position: relative;
+      height: 100%;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .mv-mision-photo {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      -webkit-mask-image: linear-gradient(
+        to right, transparent 0%, black 25%, black 100%
+      );
+      mask-image: linear-gradient(
+        to right, transparent 0%, black 25%, black 100%
+      );
+      opacity: 0.55;
+    }
+    .mv-mision-label {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: rgba(5,7,26,0.75);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 5px 12px;
+    }
+    .mv-mision-label p {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .mv-mision-strip {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 48px;
+      background-image: url("banner_mision.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      margin: 0;
+      border: 0;
+    }
+    .mv-mision-strip span {
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 3px;
+      transform: rotate(90deg);
+      white-space: nowrap;
+      opacity: 0.8;
+      font-family: var(--font-body);
+      text-transform: uppercase;
+    }
+    
+    /* Vertical gold line between panels */
+    .mv-divider-line {
+      position: absolute;
+      right: 0; top: 15%; bottom: 15%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(201,168,76,0.2), transparent);
+    }
+    /* Scroll progress indicator */
+    .mv-progress {
+      position: absolute;
+      bottom: 40px; left: 80px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mv-progress-bar {
+      width: 100px; height: 1px;
+      background: rgba(201,168,76,0.15);
+      position: relative;
+    }
+    .mv-progress-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--gold);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    .mv-progress-label {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.35);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       SERVICE BLOCKS
+    ============================================= */
+    .svc-block {
+      display: grid;
+      min-height: 420px;
+    }
+    .svc-block.layout-left  { grid-template-columns: 1.1fr 1fr; }
+    .svc-block.layout-right { grid-template-columns: 1fr 1.1fr; }
+    .svc-block.layout-full  { grid-template-columns: 1fr; }
+
+    .svc-visual {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+    }
+    .svc-vid-bg {
+      position: absolute; inset: 0;
+    }
+    .bg-caribe  { background: linear-gradient(135deg, #040E20 0%, #081A35 50%, #0C2040 100%); }
+    .bg-euro    { background: linear-gradient(135deg, #0A0618 0%, #160E28 50%, #0E0820 100%); }
+    .bg-exotic  { background: linear-gradient(135deg, #061008 0%, #0E1C10 50%, #081408 100%); }
+    .bg-world   { background: linear-gradient(135deg, #120804 0%, #1C1000 50%, #180600 100%); }
+
+    .svc-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+    .svc-play-ring {
+      width: 60px; height: 60px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .svc-play-ring:hover { border-color: var(--gold); transform: scale(1.1); }
+    .svc-play-tri {
+      border-left: 16px solid rgba(201,168,76,0.55);
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      margin-left: 4px;
+    }
+    .svc-vid-label {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      z-index: 4;
+      background: rgba(5,7,26,0.75);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 6px 12px;
+    }
+    .svc-vid-label p {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .svc-content {
+      padding: 52px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .svc-number {
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: rgba(201,168,76,0.05);
+      line-height: 1;
+      margin-bottom: -24px;
+      user-select: none;
+    }
+    .svc-tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .svc-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--gold2);
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .svc-title em { color: var(--gold); font-style: italic; }
+    .svc-desc {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text);
+      line-height: 2;
+      margin-bottom: 22px;
+    }
+    .svc-price {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding-top: 18px;
+    }
+    .svc-price strong {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    /* Full-width product overlay */
+    .svc-full-overlay {
+      position: absolute; inset: 0; z-index: 3;
+      background: linear-gradient(to right, rgba(5,7,26,0.92) 0%, rgba(5,7,26,0.5) 55%, transparent 100%);
+      display: flex; align-items: center; padding: 60px 60px;
+    }
+    .svc-full-content { max-width: 480px; }
+
+    /* =============================================
+       PROVEEDORES
+    ============================================= */
+    #proveedores {
+      padding: 64px 56px;
+      background: var(--navy3);
+    }
+    .prov-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,168,76,0.08);
+      margin-top: 28px;
+    }
+    .prov-cell {
+      background: var(--navy3);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.25s;
+    }
+    .prov-cell:hover { background: var(--navy4); }
+    .prov-circle {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: var(--navy2);
+      border: 1px solid rgba(201,168,76,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      transition: border-color 0.25s;
+    }
+    .prov-cell:hover .prov-circle { border-color: rgba(201,168,76,0.6); }
+    /* REPLACE emoji with <img> tag for real logo */
+    .prov-name {
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    /* =============================================
+       CLIENTES — HORIZONTAL SCROLL
+    ============================================= */
+    #clientes-wrapper {
+      position: relative;
+      height: 380vh; /* controls scroll duration */
+    }
+    #clientes-sticky {
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+      background: var(--navy);
+    }
+    /* Header that stays visible */
+    .clientes-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      padding: 32px 56px 20px;
+      background: linear-gradient(180deg, var(--navy) 60%, transparent 100%);
+    }
+    #clientes-track {
+      display: flex;
+      width: 400vw; /* one panel per client */
+      height: 100%;
+      will-change: transform;
+    }
+    .client-panel {
+      width: 100vw;
+      height: 100%;
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 0 80px 72px;
+    }
+    .client-bg {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+    /* Each client panel has a different color theme */
+    .client-bg-1 { background: linear-gradient(135deg, #060D1A 0%, #0A1A30 50%, #0F2540 100%); }
+    .client-bg-2 { background: linear-gradient(135deg, #0D0620 0%, #180D35 50%, #120828 100%); }
+    .client-bg-3 { background: linear-gradient(135deg, #0A1408 0%, #142010 50%, #0C1808 100%); }
+    .client-bg-4 { background: linear-gradient(135deg, #140608 0%, #200810 50%, #180408 100%); }
+
+    .client-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,7,26,0.95) 0%, rgba(5,7,26,0.4) 50%, rgba(5,7,26,0.15) 100%);
+    }
+    /* REPLACE client-bg with actual photo:
+       <img src="https://images.unsplash.com/..." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;"> */
+    .client-content {
+      position: relative;
+      z-index: 3;
+      max-width: 560px;
+    }
+    .client-stars {
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+    }
+    .client-quote-big {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold3);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .client-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .client-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--navy3);
+      border: 1px solid rgba(201,168,76,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 500;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    /* REPLACE with: <img src="URL" style="width:100%;height:100%;object-fit:cover;"> inside .client-avatar */
+    .client-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .client-name {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold2);
+    }
+    .client-route {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: rgba(201,168,76,0.5);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    /* Panel counter */
+    .client-counter {
+      position: absolute;
+      bottom: 80px; right: 56px;
+      z-index: 4;
+      text-align: right;
+    }
+    .client-counter-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: rgba(201,168,76,0.08);
+      line-height: 1;
+    }
+    .client-counter-label {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.25);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    /* Dots navigation */
+    .clients-dots {
+      position: absolute;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 10px;
+    }
+    .cdot {
+      width: 20px; height: 2px;
+      background: rgba(201,168,76,0.2);
+      transition: background 0.3s, width 0.3s;
+    }
+    .cdot.active { background: var(--gold); width: 36px; }
+
+    /* =============================================
+       CONTACTO
+    ============================================= */
+    #contactenos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+    }
+    .contact-map {
+      background: var(--navy3);
+      position: relative;
+      min-height: 280px;
+      border-right: 1px solid rgba(201,168,76,0.1);
+    }
+    /* REPLACE with actual Google Maps iframe */
+    .contact-map iframe {
+      width: 100%; height: 100%;
+      border: none;
+      filter: invert(90%) hue-rotate(180deg); /* dark map style */
+      opacity: 0.75;
+    }
+    .contact-map-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #060D1A, #0A1628);
+    }
+    .contact-map-icon { font-size: 36px; opacity: 0.25; }
+    .contact-map-lbl {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: rgba(201,168,76,0.35);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .contact-info {
+      padding: 56px 48px;
+      background: var(--navy2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .contact-links { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .clink {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 18px;
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      cursor: pointer; text-decoration: none;
+      position: relative; overflow: hidden;
+    }
+    .clink::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.25s ease;
+      transform-origin: bottom;
+    }
+    .clink:hover { border-color: rgba(201,168,76,0.5); background: rgba(201,168,76,0.05); transform: translateX(4px); }
+    .clink:hover::before { transform: scaleY(1); }
+    .clink-icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 16px;
+      border: 1px solid rgba(201,168,76,0.25);
+      background: rgba(201,168,76,0.08);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .clink:hover .clink-icon { background: rgba(201,168,76,0.18); border-color: rgba(201,168,76,0.6); }
+    .clink-info { flex: 1; }
+    .clink-platform {
+      font-family: var(--font-body); font-size: 9px;
+      color: var(--gold); letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .clink-handle {
+      font-family: var(--font-display); font-size: 15px;
+      color: var(--gold2); font-style: italic;
+    }
+    .clink-arrow {
+      font-family: var(--font-body); font-size: 16px;
+      color: rgba(201,168,76,0.3);
+      transition: color 0.25s, transform 0.25s;
+    }
+    .clink:hover .clink-arrow { color: var(--gold); transform: translateX(4px); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: #030410;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 44px 56px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer-umg {
+      font-family: var(--font-body);
+      font-size: 9px;
+      color: rgba(201,168,76,0.35);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      line-height: 2;
+      margin-bottom: 24px;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .footer-social {
+      width: 42px; height: 42px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      background: rgba(201,168,76,0.04);
+    }
+    .footer-social:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.12);
+      transform: translateY(-3px);
+    }
+    .footer-social svg {
+      width: 18px; height: 18px;
+      fill: rgba(201,168,76,0.5);
+      transition: fill 0.25s;
+    }
+    .footer-social:hover svg { fill: var(--gold); }
+    .footer-anchor { color: rgba(201,168,76,0.15); font-size: 22px; margin: 14px 0; }
+    .footer-copy {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: rgba(201,168,76,0.18);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+
+    /* =============================================
+       SCROLL REVEAL ANIMATION
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =============================================
+       PROVEEDORES — CARDS
+    ============================================= */
+    .prov-card-new {
+      background: linear-gradient(160deg, #0D1535, #07091E);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-top: 2px solid var(--gold);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .prov-card-new::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .prov-card-new:hover {
+      border-color: rgba(201,168,76,0.5);
+      transform: translateY(-4px);
+    }
+    .prov-card-logo {
+      font-size: 36px;
+      margin-bottom: 4px;
+    }
+    .prov-card-logo img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+    .prov-card-line {
+      width: 32px; height: 1px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+    .prov-card-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--gold2);
+      letter-spacing: 1px;
+    }
+    .prov-card-desc {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.9;
+      flex: 1;
+    }
+    .prov-card-btn {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(201,168,76,0.35);
+      padding: 9px 20px;
+      margin-top: 8px;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .prov-card-btn:hover {
+      background: var(--gold);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
+    /* =============================================
+       CONTACTO — SOCIAL ICONS ROW
+    ============================================= */
+    .contact-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .contact-social-icon {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(201,168,76,0.04);
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      cursor: default;
+    }
+    .contact-social-icon:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.1);
+      transform: translateY(-2px);
+    }
+    .contact-social-icon svg {
+      width: 16px; height: 16px;
+      fill: rgba(201,168,76,0.5);
+      transition: fill 0.25s;
+    }
+    .contact-social-icon:hover svg { fill: var(--gold); }
+
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+
+  <!-- =============================================
+       MARQUEE
+  ============================================= -->
+  <div class="marquee">
+    <span class="marquee-track">
+      &nbsp;<img src="logo.png" style="height:16px; vertical-align:middle;">&nbsp; CARNET: 0900-26-11280 &nbsp;·&nbsp; DERICK ANDRE SABALLOS LOPEZ &nbsp;·&nbsp; SABALLOS CRUISE &nbsp;·&nbsp; <em>Lujos lejos de la orilla</em> &nbsp;·&nbsp;
+      &nbsp;<img src="logo.png" style="height:16px; vertical-align:middle;">&nbsp; CARNET: 0900-26-11280 &nbsp;·&nbsp; DERICK ANDRE SABALLOS LOPEZ &nbsp;·&nbsp; SABALLOS CRUISE &nbsp;·&nbsp; <em>Lujos lejos de la orilla</em> &nbsp;·&nbsp;
+    </span>
+  </div>
+
+  <!-- =============================================
+       NAV
+  ============================================= -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-anchor"><img src="logo.png" style="height:32px; vertical-align:middle;"></span>
+      <div>
+        <span class="nav-logo-text">Saballos Cruise</span>
+        <span class="nav-logo-sub">Luxury Voyages</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+
+      <!-- Quiénes Somos -->
+      <li>
+        <a href="#quienes-somos">Quiénes Somos</a>
+        <ul class="nav-dropdown">
+          <li><a href="#quienes-somos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Conócenos</a></li>
+        </ul>
+      </li>
+
+      <!-- Misión & Visión -->
+      <li>
+        <a href="#mision-vision-wrapper">Misión &amp; Visión</a>
+        <ul class="nav-dropdown">
+          <li><a href="#panel-mision"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Misión</a></li>
+          <li><a href="#panel-vision"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Visión</a></li>
+        </ul>
+      </li>
+
+      <!-- Productos -->
+      <li>
+        <a href="#productos">Productos</a>
+        <ul class="nav-dropdown">
+          <li><a href="#producto-caribe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M2 18h20M2 22h20M12 2v4M4.93 4.93l2.83 2.83M19.07 4.93l-2.83 2.83M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>Caribe &amp; Bahamas</a></li>
+          <li><a href="#producto-europa"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>Europa &amp; Mediterráneo</a></li>
+          <li><a href="#producto-exoticos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>Cruceros Exóticos</a></li>
+          <li><a href="#producto-world"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>The Ultimate World Cruise</a></li>
+        </ul>
+      </li>
+
+      <!-- Proveedores -->
+      <li>
+        <a href="#proveedores">Proveedores</a>
+        <ul class="nav-dropdown">
+          <li><a href="#proveedores"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M2 20h20M5 20V10l7-7 7 7v10"/><path d="M12 3v17M8 20v-5h8v5"/></svg>Royal Caribbean Intl.</a></li>
+          <li><a href="#proveedores"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>Norwegian Cruise Line</a></li>
+          <li><a href="#proveedores"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>MSC Cruceros</a></li>
+        </ul>
+      </li>
+
+      <!-- Clientes -->
+      <li>
+        <a href="#clientes-wrapper">Clientes</a>
+        <ul class="nav-dropdown">
+          <li><a href="#clientes-wrapper"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Reviews</a></li>
+        </ul>
+      </li>
+
+      <!-- Contáctenos -->
+      <li>
+        <a href="#contactenos">Contáctenos</a>
+        <ul class="nav-dropdown">
+          <li><a href="#contactenos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Dirección</a></li>
+          <li><a href="#contactenos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Teléfono</a></li>
+          <li><a href="#contactenos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</a></li>
+          <li><a href="#contactenos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>Mapa</a></li>
+          <li><a href="#contactenos"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;margin-right:8px;opacity:0.7"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Redes Sociales</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <!-- =============================================
+       HERO
+  ============================================= -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <!-- VIDEO DE FONDO: Crucero de noche en el océano (Pexels - libre de derechos) -->
+    <!-- REEMPLAZAR src con tu video preferido cuando lo tengas -->
+    <div class="hero-video-wrap">
+      <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="firstvideo.mp4" type="video/mp4"></video>
+    </div>
+
+    <div class="scanlines"></div>
+    <div class="grain"></div>
+
+
+
+    <div class="hero-video-note">
+      Crucero Deluxe
+      <span>Video del viaje · Europa & Mediterráneo</span>
+    </div>
+
+    <div class="hero-promo">
+      <div class="promo-badge">✦ Oferta de Temporada 2026</div>
+      <p class="promo-tagline">Escapa. Celebra. Vive sin límites.</p>
+      <h1 class="promo-headline">Hasta <em>40% OFF</em> en<br>Cruceros Caribe &<br>Mediterráneo</h1>
+      <p class="promo-fine">Reservas antes del 31 de agosto · Aplican términos y condiciones</p>
+      <a href="#productos" class="promo-cta">Ver Destinos →</a>
+    </div>
+
+    <div class="hero-banner">
+      <div class="banner-name-wrap">
+        <div class="banner-line"></div>
+        <div class="banner-name">Saballos <span>Cruise</span></div>
+        <div class="banner-line"></div>
+      </div>
+      <div class="banner-right">
+        <p class="banner-tagline"><em>Lujos lejos de la orilla</em></p>
+        <div class="banner-scroll">
+          <div class="scroll-line"></div>
+          Scroll Down
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       QUIÉNES SOMOS
+  ============================================= -->
+  <section id="quienes-somos">
+    <div class="about-visual">
+      <div class="about-vid-bg"></div>
+      <div class="scanlines"></div>
+      <div class="grain"></div>
+
+      <!-- VIDEO NOCTURNO: Mar de noche (Pexels - libre de derechos) -->
+      <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="quienes.mp4" type="video/mp4"></video>
+      <div class="about-vid-tag">
+        <p>▶ Saballos Cruise</p>
+        <span>Conoce a nuestro Staff</span>
+      </div>    </div>
+
+    <div class="about-content reveal">
+      <img src="Derick.png" alt="Derick Andre Saballos Lopez" class="about-photo-fade">
+      <p class="section-label">01 · Nuestra Historia</p>
+      <h2 class="section-title">Quiénes<br><em>Somos</em></h2>
+      <div class="gold-bar"></div>
+      <p class="about-name">Derick Andre Saballos Lopez</p>
+      <p class="about-role">Fundador · Saballos Cruise</p>
+      <blockquote class="about-quote">
+        "No creemos en viajes ordinarios."
+      </blockquote>
+      <p class="about-body">
+        Saballos Cruise nació para quienes nunca conectaron con los viajes tradicionales. Creemos en noches largas, océanos abiertos y experiencias que se quedan contigo mucho después de volver a tierra. No seguimos la idea clásica del lujo. La reinventamos para una generación que quiere más libertad, más estética, más historia, más vida.
+      </p>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       MISIÓN & VISIÓN — HORIZONTAL SCROLL
+  ============================================= -->
+  <div id="mision-vision-wrapper">
+    <div id="mision-vision-sticky">
+      <div id="mision-vision-track">
+
+        <!-- PANEL MISIÓN -->
+        <div class="mv-panel" id="panel-mision">
+          <!-- Background gradient -->
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#03091A 0%,#091830 60%,#122040 100%);z-index:0;"></div>
+          <!-- Video background -->
+          <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;z-index:0;">
+            <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4" type="video/mp4">
+          </video>
+          <!-- Retro overlays -->
+          <div class="scanlines"></div>
+          <div class="grain"></div>
+          <!-- Banner (kept on top) -->
+          <img src="banner-left.png" style="position:absolute;right:0;top:0;height:100%;width:auto;object-fit:cover;z-index:5;">
+          <div style="position:relative;z-index:3;display:grid;grid-template-columns:minmax(240px,0.8fr) minmax(0,1.2fr);gap:26px;align-items:center;width:100%;max-width:none;padding-right:560px;box-sizing:border-box;">
+
+  <!-- LEFT: image -->
+  <div style="position:relative;height:380px;
+    border:1px solid rgba(201,168,76,0.2);
+    overflow:hidden;margin:0;
+    justify-self:start;align-self:stretch;">
+    <img src="mision.png"
+      style="width:100%;height:100%;object-fit:cover;
+      opacity:0.75;filter:brightness(0.65) saturate(0.8);
+      display:block;margin:0;">
+    <div style="position:absolute;inset:0;
+      background:linear-gradient(135deg,
+      rgba(5,7,26,0.5) 0%,transparent 60%);"></div>
+    <div style="position:absolute;bottom:14px;left:14px;
+      background:rgba(5,7,26,0.75);
+      border:1px solid rgba(201,168,76,0.25);
+      padding:5px 12px;">
+      <p style="font-family:var(--font-body);font-size:8px;
+        color:var(--gold);letter-spacing:1.5px;
+        text-transform:uppercase;">
+        Momentos que duran para siempre · Bodas a bordo
+      </p>
+    </div>
+  </div>
+
+  <!-- RIGHT: text -->
+  <div>
+    <div class="mv-big-letter">M</div>
+    <p class="section-label">02 · Propósito</p>
+    <h2 class="section-title"><em>Misión</em></h2>
+    <div class="gold-bar"></div>
+    <p class="mv-statement">
+      "Conectar a una nueva generación de viajeros con 
+      experiencias que se sienten diferentes."
+    </p>
+    <p class="mv-body">
+      En Saballos Cruise creemos que el lujo no está solo en el destino, sino en todo lo que ocurre lejos de la orilla: las noches interminables, el océano abierto y los momentos que terminan convirtiéndose en historias. Cada viaje que diseñamos combina estética, libertad y experiencias memorables para quienes buscan más que unas vacaciones tradicionales. Porque no somos una agencia de viajes. Somos el inicio de algo que difícilmente vas a olvidar.
+    </p>
+    <div class="mv-progress" style="position:relative;bottom:auto;left:auto;margin-top:28px;">
+      <div class="mv-progress-bar"><div class="mv-progress-fill" id="mv-fill"></div></div>
+      <span class="mv-progress-label">Continúa →</span>
+    </div>
+  </div>
+</div>
+          <div class="mv-divider-line"></div>
+        </div>
+        <!-- PANEL VISIÓN -->
+        <div class="mv-panel" id="panel-vision">
+          <!-- Background gradient -->
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#03091A 0%,#091830 60%,#122040 100%);z-index:0;"></div>
+          <!-- Video background -->
+          <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;z-index:0;">
+            <source src="vision_video.mp4" type="video/mp4">
+          </video>
+          <!-- Retro overlays -->
+          <div class="scanlines"></div>
+          <div class="grain"></div>
+          <!-- Banner (kept on top) -->
+          <img src="banner-right.png" style="position:absolute;left:0;top:0;height:100%;width:auto;object-fit:cover;z-index:5;">
+          <div style="position:relative;z-index:3;display:grid;grid-template-columns:minmax(240px,0.8fr) minmax(0,1.2fr);gap:26px;align-items:center;width:100%;max-width:none;padding-left:560px;box-sizing:border-box;">
+            <div style="position:relative;height:380px;border:1px solid rgba(201,168,76,0.2);overflow:hidden;margin:0;justify-self:start;align-self:stretch;">
+              <img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?w=800&q=80"
+                   alt="Crucero iluminado en puerto nocturno"
+                   style="width:100%;height:100%;object-fit:cover;opacity:0.75;filter:brightness(0.65) saturate(0.8);display:block;margin:0;">
+              <div style="position:absolute;inset:0;background:linear-gradient(225deg,rgba(5,7,26,0.5) 0%,transparent 60%);"></div>
+              <div style="position:absolute;bottom:14px;right:14px;background:rgba(5,7,26,0.75);border:1px solid rgba(201,168,76,0.25);padding:5px 12px;">
+                <p style="font-family:var(--font-body);font-size:8px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;">Puerto nocturno · Valencia</p>
+              </div>
+            </div>
+            <div>
+              <div class="mv-big-letter">V</div>
+              <p class="section-label">02 · Propósito</p>
+              <h2 class="section-title"><em>Visión</em></h2>
+              <div class="gold-bar"></div>
+              <p class="mv-statement">
+                "Ser la agencia de cruceros número uno para jóvenes adultos en Centroamérica
+                para 2030 — reconocida por transformar viajes en momentos que definen quiénes somos."
+              </p>
+              <p class="mv-body">
+                Construir una comunidad de viajeros que no buscan solo destinos, sino transformarse.
+                Ser la razón por la que alguien dice: "ese viaje me cambió la vida."
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       PRODUCTOS — BLOQUES EDITORIALES
+  ============================================= -->
+  <div id="productos">
+
+    <!-- PRODUCTO 1: Caribe & Bahamas -->
+    <div class="svc-block layout-left" id="producto-caribe">
+      <div class="svc-visual">
+        <div class="svc-vid-bg bg-caribe"></div>
+        <div class="scanlines"></div>
+        <div class="grain"></div>
+        <!-- VIDEO: Fiesta nocturna en el agua (Pexels) -->
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="caribe.mp4" type="video/mp4"></video>
+        
+        <div class="svc-vid-label"><p>▶ Fiesta en cubierta · Noche caribeña</p></div>
+      </div>
+      <div class="svc-content reveal" style="background: var(--navy2);">
+        <div class="svc-number">01</div>
+        <p class="section-label">Nuestros Productos</p>
+        <div class="svc-tag">El más popular</div>
+        <h3 class="svc-title">Caribe &<br><em>Las Bahamas</em></h3>
+        <p class="svc-desc">
+          Noches que no terminan, playas que no tienen nombre en el mapa, y una fiesta
+          que el océano organiza solo para ti. El Caribe no es un destino — es un estado mental.
+          Ven a descubrirlo.
+        </p>
+        <p class="svc-price">Desde <strong>$899</strong> USD &nbsp;·&nbsp; 7 a 14 noches</p>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- PRODUCTO 2: Europa & Mediterráneo -->
+    <div class="svc-block layout-right" id="producto-europa">
+      <div class="svc-content reveal" style="background: var(--navy3);">
+        <div class="svc-number">02</div>
+        <p class="section-label">Nuestros Productos</p>
+        <h3 class="svc-title">Europa &<br><em>Mediterráneo</em></h3>
+        <p class="svc-desc">
+          Barcelona al amanecer. Roma desde el mar. Santorini con el vino en la mano.
+          El Mediterráneo es el crucero de los que tienen algo que demostrar —
+          que vivieron bien, que sintieron mucho.
+        </p>
+        <p class="svc-price">Desde <strong>$2,199</strong> USD &nbsp;·&nbsp; 10 a 21 noches</p>
+      </div>
+      <div class="svc-visual">
+        <div class="svc-vid-bg bg-euro"></div>
+        <div class="scanlines"></div>
+        <div class="grain"></div>
+        <!-- VIDEO: Océano al atardecer (Pexels) -->
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="Europa.mp4" type="video/mp4"></video>
+        <!-- VIDEO: Boda bajo la luna en el Mediterráneo -->
+        
+        <div class="svc-vid-label"><p>▶ Boda bajo la luna · Mar Mediterráneo</p></div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- PRODUCTO 3: Cruceros Exóticos (FULL WIDTH) -->
+    <div class="svc-block layout-full" id="producto-exoticos">
+      <div class="svc-visual" style="min-height: 420px;">
+        <div class="svc-vid-bg bg-exotic"></div>
+        <div class="scanlines"></div>
+        <div class="grain"></div>
+        <!-- VIDEO: Océano exótico de noche (Pexels) -->
+        <!-- exotico.mp4 -->
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="exotico.mp4" type="video/mp4"></video>
+        <div class="svc-full-overlay">
+          <div class="svc-full-content reveal">
+            <div class="svc-number" style="font-size: 90px; margin-bottom: -30px;">03</div>
+            <p class="section-label">Nuestros Productos</p>
+            <h3 class="svc-title" style="font-size: 38px;">Cruceros<br><em>Exóticos</em></h3>
+            <p class="svc-desc">
+              Japón. Tailandia. Los Fiordos de Noruega. Lugares donde el idioma no importa
+              porque el asombro es universal. Para los que ya vieron el Caribe y quieren más.
+            </p>
+            <p class="svc-price">Desde <strong>$3,400</strong> USD &nbsp;·&nbsp; Rutas especiales</p>
+          </div>
+        </div>
+        <div class="svc-vid-label" style="bottom:16px; right:16px; left:auto;">
+          <p>▶ Mirando las estrellas · Océano Pacífico</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider"></div>
+
+    <!-- PRODUCTO 4: Ultimate World Cruise -->
+    <div class="svc-block layout-left" id="producto-world">
+      <div class="svc-visual">
+        <div class="svc-vid-bg bg-world"></div>
+        <div class="scanlines"></div>
+        <div class="grain"></div>
+        <!-- VIDEO: Amanecer en el océano (Pexels) -->
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="worldcruise.mp4" type="video/mp4"></video>
+        <!-- VIDEO: Salida al amanecer · Vuelta al mundo -->
+        
+        <div class="svc-vid-label"><p>▶ Salida al amanecer · Vuelta al Mundo</p></div>
+      </div>
+      <div class="svc-content reveal" style="background: var(--navy);">
+        <div class="svc-number">04</div>
+        <p class="section-label">Nuestros Productos</p>
+        <div class="svc-tag">Experiencia Máxima</div>
+        <h3 class="svc-title">The Ultimate<br><em>World Cruise</em></h3>
+        <p class="svc-desc">
+          La vuelta al mundo completa. 6 continentes. Más de 50 puertos. Una sola pregunta:
+          ¿estás listo para desaparecer del mundo durante meses y regresar siendo otra persona?
+        </p>
+        <p class="svc-price">Desde <strong>$18,999</strong> USD &nbsp;·&nbsp; 90 a 120 noches</p>
+      </div>
+    </div>
+
+  </div><!-- fin #productos -->
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       PROVEEDORES
+  ============================================= -->
+  <section id="proveedores" style="position:relative;overflow:hidden;">
+    <!-- Background gradient -->
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,#03091A 0%,#091830 60%,#122040 100%);z-index:0;"></div>
+    <!-- Video background -->
+    <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;z-index:0;">
+      <source src="proveedores_video.mp4" type="video/mp4">
+    </video>
+    <!-- Retro overlays -->
+    <div class="scanlines"></div>
+    <div class="grain"></div>
+    <!-- Content -->
+    <div style="position:relative;z-index:3;">
+    <div class="reveal">
+      <p class="section-label">04 · Alianzas Estratégicas</p>
+      <h2 class="section-title">Nuestros <em>Proveedores</em></h2>
+      <div class="gold-bar"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;" class="reveal">
+
+      <!-- CARD 1 — Royal Caribbean -->
+      <div class="prov-card-new">
+        <div class="prov-card-logo"><img src="Royal_Caribbean_logo.png" alt="Royal Caribbean"></div>
+        <div class="prov-card-line"></div>
+        <h3 class="prov-card-name">Royal Caribbean Intl.</h3>
+        <p class="prov-card-desc">
+          La línea de cruceros más innovadora del mundo. Con destinos en el Caribe, Europa, Alaska y más de 50 puertos globales, sus barcos redefinen lo que significa vivir el lujo en alta mar.
+        </p>
+        <a href="https://www.royalcaribbean.com" target="_blank" class="prov-card-btn">Visitar sitio →</a>
+      </div>
+
+      <!-- CARD 2 — Norwegian Cruise Line -->
+      <div class="prov-card-new">
+        <div class="prov-card-logo"><img src="Norwegian-Cruise-Line-Logo.png" alt="Norwegian Cruise Line"></div>
+        <div class="prov-card-line"></div>
+        <h3 class="prov-card-name">Norwegian Cruise Line</h3>
+        <p class="prov-card-desc">
+          Pioneros del estilo de crucero libre y sin horarios fijos. Norwegian ofrece una experiencia relajada, moderna y flexible para quienes viajan a su propio ritmo.
+        </p>
+        <a href="https://www.ncl.com" target="_blank" class="prov-card-btn">Visitar sitio →</a>
+      </div>
+
+      <!-- CARD 3 — MSC Cruceros -->
+      <div class="prov-card-new">
+        <div class="prov-card-logo"><img src="MSC_Cruises_Logo.png" alt="MSC Cruceros"></div>
+        <div class="prov-card-line"></div>
+        <h3 class="prov-card-name">MSC Cruceros</h3>
+        <p class="prov-card-desc">
+          La flota de cruceros de lujo más grande de Europa. Con una elegancia mediterránea incomparable, MSC conecta los destinos más exclusivos del mundo con un estilo refinado y sofisticado.
+        </p>
+        <a href="https://www.msccruises.com" target="_blank" class="prov-card-btn">Visitar sitio →</a>
+      </div>
+
+    </div>
+    </div><!-- fin content wrapper -->
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       CLIENTES — HORIZONTAL SCROLL
+  ============================================= -->
+  <div id="clientes-wrapper">
+    <div id="clientes-sticky">
+
+      <div class="clientes-header">
+        <p class="section-label">05 · Voces Reales</p>
+        <h2 class="section-title">Nuestros <em>Clientes</em></h2>
+        <div class="gold-bar" style="margin-bottom: 0;"></div>
+      </div>
+
+      <div id="clientes-track">
+
+        <!-- CLIENTE 1 -->
+        <div class="client-panel">
+          <div class="client-bg client-bg-1" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <!-- REEMPLAZAR con foto real:
+          <img src="https://images.unsplash.com/photo-XXXXXXX?w=1400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;">
+          -->
+          <div class="client-overlay"></div>
+          <div class="scanlines"></div>
+          <div class="client-content">
+            <div class="client-stars">★★★★★</div>
+            <p class="client-quote-big">
+              "La noche que bailamos en cubierta bajo las estrellas... eso no tiene precio."
+            </p>
+            <div class="client-info">
+              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="María Rodríguez"></div>
+              <div>
+                <p class="client-name">María Rodríguez</p>
+                <p class="client-route">Caribe · 7 noches · Paquete All In</p>
+              </div>
+            </div>
+          </div>
+          <div class="client-counter">
+            <div class="client-counter-num">01</div>
+            <div class="client-counter-label">de 04</div>
+          </div>
+        </div>
+
+        <!-- CLIENTE 2 -->
+        <div class="client-panel">
+          <div class="client-bg client-bg-2" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-overlay"></div>
+          <div class="scanlines"></div>
+          <div class="client-content">
+            <div class="client-stars">★★★★★</div>
+            <p class="client-quote-big">
+              "Saballos Cruise no solo nos llevó a Europa, nos hizo sentir que pertenecíamos ahí."
+            </p>
+            <div class="client-info">
+              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Carlos López"></div>
+              <div>
+                <p class="client-name">Carlos López</p>
+                <p class="client-route">Mediterráneo · 14 noches · Paquete Spa</p>
+              </div>
+            </div>
+          </div>
+          <div class="client-counter">
+            <div class="client-counter-num">02</div>
+            <div class="client-counter-label">de 04</div>
+          </div>
+        </div>
+
+        <!-- CLIENTE 3 -->
+        <div class="client-panel">
+          <div class="client-bg client-bg-3" style="background-image:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-overlay"></div>
+          <div class="scanlines"></div>
+          <div class="client-content">
+            <div class="client-stars">★★★★★</div>
+            <p class="client-quote-big">
+              "Nos casamos en el crucero con el mar de fondo y la luna arriba. Imposible olvidarlo."
+            </p>
+            <div class="client-info">
+              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80" alt="Ana Fuentes"></div>
+              <div>
+                <p class="client-name">Ana Fuentes</p>
+                <p class="client-route">Bahamas · 5 noches · Paquete de Bodas</p>
+              </div>
+            </div>
+          </div>
+          <div class="client-counter">
+            <div class="client-counter-num">03</div>
+            <div class="client-counter-label">de 04</div>
+          </div>
+        </div>
+
+        <!-- CLIENTE 4 -->
+        <div class="client-panel">
+          <div class="client-bg client-bg-4" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-overlay"></div>
+          <div class="scanlines"></div>
+          <div class="client-content">
+            <div class="client-stars">★★★★★</div>
+            <p class="client-quote-big">
+              "120 días dando la vuelta al mundo. Regresé siendo otra persona. Gracias, Saballos."
+            </p>
+            <div class="client-info">
+              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Javier Pérez"></div>
+              <div>
+                <p class="client-name">Javier Pérez</p>
+                <p class="client-route">World Cruise · 120 noches · Ultimate</p>
+              </div>
+            </div>
+          </div>
+          <div class="client-counter">
+            <div class="client-counter-num">04</div>
+            <div class="client-counter-label">de 04</div>
+          </div>
+        </div>
+
+      </div><!-- fin #clientes-track -->
+
+      <!-- Dots navigation -->
+      <div class="clients-dots">
+        <div class="cdot active" data-i="0"></div>
+        <div class="cdot" data-i="1"></div>
+        <div class="cdot" data-i="2"></div>
+        <div class="cdot" data-i="3"></div>
+      </div>
+
+    </div>
+  </div><!-- fin #clientes-wrapper -->
+
+  <div class="gold-divider"></div>
+
+  <!-- =============================================
+       CONTACTO
+  ============================================= -->
+  <section id="contactenos">
+    <div class="contact-map">
+      <!-- Google Maps: Edificio WTC Zona 13, Guatemala City -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.2!2d-90.5135!3d14.5868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a3a7e7d9c7e7%3A0x7b8a1f1f1f1f1f1f!2sWorld%20Trade%20Center%20Guatemala%2C%20Zona%2013!5e0!3m2!1ses!2sgt!4v1"
+        width="100%" height="100%"
+        style="border:none; filter: invert(92%) hue-rotate(180deg) saturate(0.7); opacity:0.8;"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <div class="contact-info reveal">
+      <p class="section-label">06 · Encuéntranos</p>
+      <h2 class="section-title">Contác<em>tenos</em></h2>
+      <div class="gold-bar"></div>
+      <div class="contact-links">
+        <!-- Dirección -->
+        <div class="clink">
+          <div class="clink-icon">📍</div>
+          <div class="clink-info">
+            <div class="clink-platform">Dirección</div>
+            <div class="clink-handle">Edificio WTC Zona 13, 15-05 Avenida</div>
+          </div>
+        </div>
+        <!-- Teléfono -->
+        <div class="clink">
+          <div class="clink-icon">📞</div>
+          <div class="clink-info">
+            <div class="clink-platform">Teléfono</div>
+            <div class="clink-handle">3551-8523</div>
+          </div>
+        </div>
+        <!-- Email -->
+        <a href="mailto:info@saballoscruise.com" class="clink">
+          <div class="clink-icon">✉️</div>
+          <div class="clink-info">
+            <div class="clink-platform">Email</div>
+            <div class="clink-handle">info@saballoscruise.com</div>
+          </div>
+          <div class="clink-arrow">→</div>
+        </a>
+      </div>
+
+      <!-- Social icons row -->
+      <div class="contact-socials">
+        <div class="contact-social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        <div class="contact-social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="contact-social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </div>
+        <div class="contact-social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <p class="footer-logo">Saballos Cruise</p>
+    <p class="footer-umg">
+      "Forjando el Carácter del Futuro Profesional"<br>
+      Universidad Mariano Gálvez de Guatemala
+    </p>
+    <div class="footer-socials">
+      <!-- Facebook UMG -->
+      <a href="https://www.facebook.com/u.marianogalvez/" target="_blank" class="footer-social" title="Facebook UMG">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <!-- Instagram UMG -->
+      <a href="https://www.instagram.com/marianogalvez/" target="_blank" class="footer-social" title="Instagram UMG">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <!-- YouTube UMG -->
+      <a href="https://www.youtube.com/@umarianogalvez" target="_blank" class="footer-social" title="YouTube UMG">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <!-- Twitter/X UMG -->
+      <a href="https://twitter.com/marianogalvez" target="_blank" class="footer-social" title="Twitter / X UMG">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+      </a>
+    </div>
+    <p class="footer-anchor">⚓</p>
+    <p class="footer-copy">© 2025 Saballos Cruise · Todos los derechos reservados · Derick Andre Saballos Lopez · 0900-26-11280</p>
+  </footer>
+
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    // -----------------------------------------------
+    // CUSTOM CURSOR
+    // -----------------------------------------------
+    const cursor     = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.transform     = `translate(${e.clientX - 5}px, ${e.clientY - 5}px)`;
+      cursorRing.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+    });
+
+    // Expand ring on hover over clickable elements
+    document.querySelectorAll('a, button, .promo-cta, .svc-play-ring, .clink, .prov-cell, .music-player').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width       = '54px';
+        cursorRing.style.height      = '54px';
+        cursorRing.style.borderColor = 'rgba(201,168,76,0.7)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width       = '36px';
+        cursorRing.style.height      = '36px';
+        cursorRing.style.borderColor = 'rgba(201,168,76,0.4)';
+      });
+    });
+
+    // -----------------------------------------------
+    // SCROLL REVEAL (IntersectionObserver)
+    // -----------------------------------------------
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target); // animate once
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+
+    // -----------------------------------------------
+    // MISIÓN & VISIÓN — HORIZONTAL SCROLL
+    // -----------------------------------------------
+    const mvWrapper = document.getElementById('mision-vision-wrapper');
+    const mvTrack   = document.getElementById('mision-vision-track');
+    const mvFill    = document.getElementById('mv-fill');
+    const panelMision = document.getElementById('panel-mision');
+    const panelVision = document.getElementById('panel-vision');
+
+    function updateMisionVision() {
+      const wrapperTop    = mvWrapper.getBoundingClientRect().top;
+      const wrapperHeight = mvWrapper.offsetHeight;
+      const viewHeight    = window.innerHeight;
+
+      // progress = 0 when section enters, 1 when section exits
+      const progress = Math.max(0, Math.min(1,
+        -wrapperTop / (wrapperHeight - viewHeight)
+      ));
+
+      // Horizontal movement: slide the track
+      const maxSlide = window.innerWidth; // one full viewport width
+      const slideX   = progress * maxSlide;
+      mvTrack.style.transform = `translateX(-${slideX}px)`;
+
+      // Panels stay aligned — no vertical offset
+      panelMision.style.transform = `translateY(0)`;
+      panelVision.style.transform = `translateY(0)`;
+
+      // Progress bar fill
+      if (mvFill) mvFill.style.width = `${progress * 100}%`;
+    }
+
+
+    // -----------------------------------------------
+    // CLIENTES — HORIZONTAL SCROLL
+    // -----------------------------------------------
+    const clientWrapper = document.getElementById('clientes-wrapper');
+    const clientTrack   = document.getElementById('clientes-track');
+    const clientDots    = document.querySelectorAll('.cdot');
+    const numClients    = 4;
+
+    function updateClientes() {
+      const wrapperTop    = clientWrapper.getBoundingClientRect().top;
+      const wrapperHeight = clientWrapper.offsetHeight;
+      const viewHeight    = window.innerHeight;
+
+      const progress = Math.max(0, Math.min(1,
+        -wrapperTop / (wrapperHeight - viewHeight)
+      ));
+
+      // Slide through all client panels
+      const maxSlide = window.innerWidth * (numClients - 1);
+      const slideX   = progress * maxSlide;
+      clientTrack.style.transform = `translateX(-${slideX}px)`;
+
+      // Update dots
+      const activeIndex = Math.round(progress * (numClients - 1));
+      clientDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    }
+
+
+    // -----------------------------------------------
+    // SINGLE SCROLL LISTENER (performance)
+    // -----------------------------------------------
+    window.addEventListener('scroll', () => {
+      updateMisionVision();
+      updateClientes();
+    }, { passive: true });
+
+    // Run once on load to set initial state
+    updateMisionVision();
+    updateClientes();
+
+
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
