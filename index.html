@@ -22,7 +22,6 @@
       --gold:    #C9A84C;
       --gold2:   #E8D5A3;
       --gold3:   #F5EDD8;
-      --muted:   #4A5a72;
       --text:    #8899BB;
       --font-display: 'Cormorant Garamond', Georgia, serif;
       --font-body:    'DM Sans', Arial, sans-serif;
@@ -262,17 +261,6 @@
       pointer-events: none;
       border: 0;
     }
-    .yt-bg-frame {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      min-width: 100%; min-height: 100%;
-      width: auto; height: auto;
-      object-fit: cover;
-      opacity: 0.38;
-      pointer-events: none;
-      border: 0;
-    }
     .hero-video-note {
       position: absolute;
       top: 16px; right: 18px;
@@ -291,45 +279,6 @@
       color: rgba(201,168,76,0.4);
       margin-top: 2px;
       font-size: 7px;
-    }
-
-    /* Hero play icon */
-    .hero-play {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      z-index: 3;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-    .hero-play-ring {
-      width: 90px; height: 90px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .about-photo-fade {
-      -webkit-mask-image: radial-gradient(
-        ellipse 80% 90% at 60% 50%,
-        black 30%, transparent 100%
-      );
-      mask-image: radial-gradient(
-        ellipse 80% 90% at 60% 50%,
-        black 30%, transparent 100%
-      );
-      opacity: 0.55;
-      position: absolute;
-      right: 0; top: 0; bottom: 0;
-      width: 45%;
-      object-fit: cover;
-      object-position: center 15%;
-    }
-    .hero-play-tri {
-      border-left: 26px solid var(--gold);
-      border-top: 15px solid transparent;
-      border-bottom: 15px solid transparent;
-      margin-left: 6px;
     }
 
     /* Promo content */
@@ -498,6 +447,9 @@
       display: grid;
       grid-template-columns: 1fr 1.5fr;
       min-height: 420px;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
     .about-visual {
       position: relative;
@@ -533,34 +485,6 @@
       display: block;
       margin-top: 2px;
     }
-    .about-photo-frame {
-      position: relative;
-      z-index: 3;
-      border: 1px solid rgba(201,168,76,0.4);
-      padding: 4px;
-    }
-    .about-photo-inner {
-      width: 100px;
-      height: 120px;
-      background: linear-gradient(180deg, #1A2A4A, #0D1535);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    /* REPLACE THIS with your actual photo: <img src="img/foto.jpg" style="width:100%;height:100%;object-fit:cover;"> */
-    .about-photo-placeholder {
-      font-size: 36px;
-      opacity: 0.3;
-    }
-    .about-photo-lbl {
-      font-family: var(--font-body);
-      font-size: 8px;
-      color: rgba(201,168,76,0.4);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
      .about-content {
       position: relative;
       padding: 56px 48px;
@@ -576,6 +500,8 @@
       font-weight: 400;
       color: var(--gold2);
       margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
     }
     .about-role {
       font-family: var(--font-body);
@@ -583,7 +509,9 @@
       color: var(--gold);
       letter-spacing: 3px;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1;
     }
     .about-quote {
       border-left: 2px solid var(--gold);
@@ -594,14 +522,42 @@
       font-style: italic;
       color: var(--gold2);
       line-height: 1.7;
+      position: relative;
+      z-index: 1;
     }
     .about-body {
       font-family: var(--font-body);
       font-size: 13px;
-      color: var(--text);
+      color: #A89878;
       line-height: 2;
+      text-shadow: 0 1px 8px rgba(5,7,26,0.8);
+      position: relative;
+      z-index: 1;
     }
 
+    /* =============================================
+       QUIÉNES SOMOS — NAUTICAL LINES
+    ============================================= */
+    .about-content > * { position: relative; z-index: 1; }
+    .about-founder-photo {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 38%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .about-founder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      -webkit-mask-image: radial-gradient(ellipse 85% 90% at 70% 50%, black 20%, transparent 100%);
+      mask-image: radial-gradient(ellipse 85% 90% at 70% 50%, black 20%, transparent 100%);
+      opacity: 0.45;
+    }
     /* =============================================
        MISIÓN & VISIÓN — HORIZONTAL SCROLL
     ============================================= */
@@ -639,8 +595,9 @@
     #panel-mision {
       position: relative;
       overflow: visible;
+      padding: 0;
     }
-    #panel-vision  { padding-top: 60px; position: relative; overflow: visible; }
+    #panel-vision  { padding: 0; position: relative; overflow: visible; }
 
     .mv-big-letter {
       font-family: var(--font-display);
@@ -659,87 +616,15 @@
       line-height: 1.65;
       max-width: 600px;
       margin-bottom: 20px;
+      text-shadow: 0 1px 12px rgba(5,7,26,0.9);
     }
     .mv-body {
       font-family: var(--font-body);
       font-size: 13px;
-      color: var(--text);
+      color: #C4CEDC;
       line-height: 2;
       max-width: 520px;
-    }
-    .mv-mision-media {
-      position: relative;
-      height: 100%;
-      min-height: 420px;
-      overflow: hidden;
-    }
-    .mv-mision-photo {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      -webkit-mask-image: linear-gradient(
-        to right, transparent 0%, black 25%, black 100%
-      );
-      mask-image: linear-gradient(
-        to right, transparent 0%, black 25%, black 100%
-      );
-      opacity: 0.55;
-    }
-    .mv-mision-label {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      background: rgba(5,7,26,0.75);
-      border: 1px solid rgba(201,168,76,0.25);
-      padding: 5px 12px;
-    }
-    .mv-mision-label p {
-      font-family: var(--font-body);
-      font-size: 8px;
-      color: var(--gold);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      line-height: 1.6;
-    }
-    .mv-mision-strip {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 48px;
-      background-image: url("banner_mision.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      margin: 0;
-      border: 0;
-    }
-    .mv-mision-strip span {
-      color: var(--gold);
-      font-size: 9px;
-      letter-spacing: 3px;
-      transform: rotate(90deg);
-      white-space: nowrap;
-      opacity: 0.8;
-      font-family: var(--font-body);
-      text-transform: uppercase;
-    }
-    
-    /* Vertical gold line between panels */
-    .mv-divider-line {
-      position: absolute;
-      right: 0; top: 15%; bottom: 15%;
-      width: 1px;
-      background: linear-gradient(180deg, transparent, rgba(201,168,76,0.2), transparent);
+      text-shadow: 0 1px 8px rgba(5,7,26,0.9);
     }
     /* Scroll progress indicator */
     .mv-progress {
@@ -793,25 +678,6 @@
     .bg-exotic  { background: linear-gradient(135deg, #061008 0%, #0E1C10 50%, #081408 100%); }
     .bg-world   { background: linear-gradient(135deg, #120804 0%, #1C1000 50%, #180600 100%); }
 
-    .svc-play {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
-    }
-    .svc-play-ring {
-      width: 60px; height: 60px;
-      border: 1px solid rgba(201,168,76,0.4);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .svc-play-ring:hover { border-color: var(--gold); transform: scale(1.1); }
-    .svc-play-tri {
-      border-left: 16px solid rgba(201,168,76,0.55);
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      margin-left: 4px;
-    }
     .svc-vid-label {
       position: absolute;
       bottom: 16px; left: 16px;
@@ -827,12 +693,28 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
+    .svc-nautical {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .svc-nautical svg {
+      width: 100%;
+      height: 100%;
+    }
     .svc-content {
+      position: relative;
       padding: 52px 44px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       overflow: hidden;
+    }
+    .svc-content > *:not(.svc-nautical) {
+      position: relative;
+      z-index: 1;
     }
     .svc-number {
       font-family: var(--font-display);
@@ -884,6 +766,63 @@
       font-family: var(--font-display);
       font-size: 26px;
       font-weight: 400;
+    }
+
+    /* =============================================
+       PRODUCTOS — TOOLTIP ON TITLE
+    ============================================= */
+    .svc-title-wrap {
+      position: relative;
+      display: inline-block;
+      cursor: default;
+    }
+    .svc-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      background: rgba(5, 7, 26, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-top: 2px solid var(--gold);
+      padding: 14px 18px;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .svc-title-wrap:hover .svc-tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .svc-tooltip-title {
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .svc-tooltip-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--gold2);
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.08);
+    }
+    .svc-tooltip-item:last-child { border-bottom: none; }
+    .svc-tooltip-check {
+      color: var(--gold);
+      font-size: 10px;
+      flex-shrink: 0;
     }
 
     /* Full-width product overlay */
@@ -1095,6 +1034,17 @@
       min-height: 280px;
       border-right: 1px solid rgba(201,168,76,0.1);
     }
+    .contact-nautical {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .contact-nautical svg {
+      width: 100%;
+      height: 100%;
+    }
     /* REPLACE with actual Google Maps iframe */
     .contact-map iframe {
       width: 100%; height: 100%;
@@ -1118,12 +1068,17 @@
       text-transform: uppercase;
     }
     .contact-info {
+      position: relative;
       padding: 56px 48px;
       background: var(--navy2);
       display: flex;
       flex-direction: column;
       justify-content: center;
       overflow: hidden;
+    }
+    .contact-info > *:not(.contact-nautical) {
+      position: relative;
+      z-index: 1;
     }
     .contact-links { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
     .clink {
@@ -1176,20 +1131,19 @@
     ============================================= */
     footer {
       background: #030410;
-      border-top: 1px solid rgba(201,168,76,0.2);
       padding: 44px 56px;
       text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.2);
     }
-    .footer-logo {
-      font-family: var(--font-display);
+    .ft-logo {
+      font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 22px;
-      color: var(--gold);
+      color: #C9A84C;
       letter-spacing: 6px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-    .footer-umg {
-      font-family: var(--font-body);
+    .ft-umg {
       font-size: 9px;
       color: rgba(201,168,76,0.35);
       letter-spacing: 2px;
@@ -1197,35 +1151,44 @@
       line-height: 2;
       margin-bottom: 24px;
     }
-    .footer-socials {
+    .ft-socials {
       display: flex;
+      flex-direction: row;
       justify-content: center;
       gap: 12px;
       margin-bottom: 20px;
     }
-    .footer-social {
-      width: 42px; height: 42px;
-      border: 1px solid rgba(201,168,76,0.2);
+    .ft-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(201,168,76,0.25);
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: rgba(201,168,76,0.04);
+      color: rgba(201,168,76,0.55);
+      text-decoration: none;
+      transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.2s;
     }
-    .footer-social:hover {
-      border-color: var(--gold);
+    .ft-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      display: block;
+    }
+    .ft-btn:hover {
+      border-color: #C9A84C;
       background: rgba(201,168,76,0.12);
-      transform: translateY(-3px);
+      color: #C9A84C;
+      transform: translateY(-2px);
     }
-    .footer-social svg {
-      width: 18px; height: 18px;
-      fill: rgba(201,168,76,0.5);
-      transition: fill 0.25s;
+    .ft-anchor {
+      font-size: 20px;
+      color: rgba(201,168,76,0.15);
+      margin: 12px 0;
     }
-    .footer-social:hover svg { fill: var(--gold); }
-    .footer-anchor { color: rgba(201,168,76,0.15); font-size: 22px; margin: 14px 0; }
-    .footer-copy {
-      font-family: var(--font-body);
+    .ft-copy {
       font-size: 8px;
       color: rgba(201,168,76,0.18);
       letter-spacing: 2px;
@@ -1352,6 +1315,278 @@
       transition: fill 0.25s;
     }
     .contact-social-icon:hover svg { fill: var(--gold); }
+
+    /* =============================================
+       LAPTOP — 1280px to 1439px
+    ============================================= */
+    @media (max-width: 1439px) {
+
+      /* NAV */
+      .nav { padding: 0 24px; }
+      .nav-links a { font-size: 13px; padding: 8px 9px; }
+
+      /* HERO */
+      .promo-headline { font-size: 42px; }
+      .banner-name { font-size: 26px; letter-spacing: 5px; }
+
+      /* QUIÉNES SOMOS */
+      #quienes-somos { grid-template-columns: 1fr 1.2fr; }
+      .about-content { padding: 40px 32px; }
+      .about-quote { font-size: 16px; }
+      .about-body { font-size: 12px; }
+
+      /* PRODUCTOS */
+      .svc-content { padding: 36px 32px; }
+      .svc-title { font-size: 26px; }
+      .svc-desc { font-size: 12px; }
+      .svc-number { font-size: 64px; }
+
+      /* PROVEEDORES */
+      #proveedores { padding: 48px 40px; }
+      .prov-card-name { font-size: 18px; }
+      .prov-card-desc { font-size: 11px; }
+
+      /* CLIENTES */
+      .client-quote-big { font-size: 22px; }
+      .client-panel { padding: 0 0 60px 56px; }
+
+      /* CONTACTO */
+      .contact-info { padding: 40px 36px; }
+      .clink-handle { font-size: 13px; }
+
+      /* FOOTER */
+      footer { padding: 36px 24px; }
+    }
+
+    /* =============================================
+       DESKTOP GRANDE — 1440px+
+       (already optimized, minor tweaks only)
+    ============================================= */
+    @media (min-width: 1440px) {
+
+      .promo-headline { font-size: 56px; }
+      .mv-statement { font-size: 26px; }
+      .about-quote { font-size: 20px; }
+      .client-quote-big { font-size: 32px; }
+
+      /* Wider screens get more breathing room */
+      .svc-content { padding: 64px 56px; }
+      .about-content { padding: 72px 60px; }
+    }
+
+    /* =============================================
+       MISIÓN — EDITORIAL OVERLAP LAYOUT
+    ============================================= */
+    .mv-mision-layout {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0 80px 0 60px;
+    }
+    .mv-mision-photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 320px;
+      height: 480px;
+      z-index: 3;
+      margin-right: -48px;
+    }
+    .mv-mision-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border: 1px solid rgba(201,168,76,0.25);
+      filter: brightness(0.65) saturate(0.75) sepia(0.18);
+      mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
+    }
+    .mv-mision-photo-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: rgba(5,7,26,0.78);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 5px 12px;
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .mv-mision-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(5, 7, 26, 0.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.22);
+      border-top: 1px solid rgba(201,168,76,0.5);
+      border-left: 1px solid rgba(201,168,76,0.5);
+      padding: 44px 48px 44px 72px;
+      flex: 1;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .mv-mision-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 160px; height: 160px;
+      background: radial-gradient(
+        ellipse at top left,
+        rgba(201,168,76,0.07) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+    .mv-mision-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 12%; bottom: 12%;
+      width: 2px;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(201,168,76,0.7),
+        transparent
+      );
+    }
+
+    /* =============================================
+       VISIÓN — EDITORIAL OVERLAP LAYOUT (mirror)
+    ============================================= */
+    .mv-vision-layout {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0 60px 0 360px;
+    }
+    .mv-vision-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(5, 7, 26, 0.52);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(201,168,76,0.22);
+      border-top: 1px solid rgba(201,168,76,0.5);
+      border-right: 1px solid rgba(201,168,76,0.5);
+      padding: 44px 72px 44px 48px;
+      flex: 1;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .mv-vision-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 160px; height: 160px;
+      background: radial-gradient(
+        ellipse at top right,
+        rgba(201,168,76,0.07) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+    .mv-vision-card::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 12%; bottom: 12%;
+      width: 2px;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(201,168,76,0.7),
+        transparent
+      );
+    }
+    .mv-vision-photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 320px;
+      height: 480px;
+      z-index: 3;
+      margin-left: -48px;
+    }
+    .mv-vision-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border: 1px solid rgba(201,168,76,0.25);
+      filter: brightness(0.65) saturate(0.75) sepia(0.18);
+      mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 70%, transparent 100%);
+    }
+    .mv-vision-photo-caption {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(5,7,26,0.78);
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 5px 12px;
+      font-family: var(--font-body);
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       MISIÓN & VISIÓN — GLASS CARD
+    ============================================= */
+    .mv-glass-card {
+      background: rgba(5, 7, 26, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-top: 1px solid rgba(201,168,76,0.45);
+      border-left: 1px solid rgba(201,168,76,0.45);
+      padding: 40px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mv-glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(
+        ellipse at top left,
+        rgba(201,168,76,0.08) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+    .mv-glass-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 15%; bottom: 15%;
+      width: 2px;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(201,168,76,0.6),
+        transparent
+      );
+    }
+    .mv-glass-card .mv-big-letter {
+      margin-top: -60px;
+      margin-left: -20px;
+      opacity: 0.06;
+    }
 
   </style>
 </head>
@@ -1511,18 +1746,33 @@
       </div>    </div>
 
     <div class="about-content reveal">
-      <img src="Derick.png" alt="Derick Andre Saballos Lopez" class="about-photo-fade">
+
       <p class="section-label">01 · Nuestra Historia</p>
       <h2 class="section-title">Quiénes<br><em>Somos</em></h2>
       <div class="gold-bar"></div>
-      <p class="about-name">Derick Andre Saballos Lopez</p>
-      <p class="about-role">Fundador · Saballos Cruise</p>
+
+      <!-- Founder circle avatar + name -->
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;position:relative;z-index:1;">
+        <div style="width:56px;height:56px;border-radius:50%;border:1px solid rgba(201,168,76,0.4);overflow:hidden;flex-shrink:0;">
+          <img src="Derick.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        </div>
+        <div>
+          <p class="about-name">Derick Andre Saballos Lopez</p>
+          <p class="about-role">Fundador · Saballos Cruise</p>
+        </div>
+      </div>
+
       <blockquote class="about-quote">
         "No creemos en viajes ordinarios."
       </blockquote>
       <p class="about-body">
         Saballos Cruise nació para quienes nunca conectaron con los viajes tradicionales. Creemos en noches largas, océanos abiertos y experiencias que se quedan contigo mucho después de volver a tierra. No seguimos la idea clásica del lujo. La reinventamos para una generación que quiere más libertad, más estética, más historia, más vida.
       </p>
+
+      <!-- Large faded founder photo — artistic presence -->
+      <div class="about-founder-photo">
+        <img src="Derick.png" alt="Derick Andre Saballos Lopez">
+      </div>
     </div>
   </section>
 
@@ -1548,51 +1798,41 @@
           <div class="grain"></div>
           <!-- Banner (kept on top) -->
           <img src="banner-left.png" style="position:absolute;right:0;top:0;height:100%;width:auto;object-fit:cover;z-index:5;">
-          <div style="position:relative;z-index:3;display:grid;grid-template-columns:minmax(240px,0.8fr) minmax(0,1.2fr);gap:26px;align-items:center;width:100%;max-width:none;padding-right:560px;box-sizing:border-box;">
 
-  <!-- LEFT: image -->
-  <div style="position:relative;height:380px;
-    border:1px solid rgba(201,168,76,0.2);
-    overflow:hidden;margin:0;
-    justify-self:start;align-self:stretch;">
-    <img src="mision.png"
-      style="width:100%;height:100%;object-fit:cover;
-      opacity:0.75;filter:brightness(0.65) saturate(0.8);
-      display:block;margin:0;">
-    <div style="position:absolute;inset:0;
-      background:linear-gradient(135deg,
-      rgba(5,7,26,0.5) 0%,transparent 60%);"></div>
-    <div style="position:absolute;bottom:14px;left:14px;
-      background:rgba(5,7,26,0.75);
-      border:1px solid rgba(201,168,76,0.25);
-      padding:5px 12px;">
-      <p style="font-family:var(--font-body);font-size:8px;
-        color:var(--gold);letter-spacing:1.5px;
-        text-transform:uppercase;">
-        Momentos que duran para siempre · Bodas a bordo
-      </p>
-    </div>
-  </div>
+          <!-- EDITORIAL LAYOUT -->
+          <div class="mv-mision-layout" style="z-index:3;">
 
-  <!-- RIGHT: text -->
-  <div>
-    <div class="mv-big-letter">M</div>
-    <p class="section-label">02 · Propósito</p>
-    <h2 class="section-title"><em>Misión</em></h2>
-    <div class="gold-bar"></div>
-    <p class="mv-statement">
-      "Conectar a una nueva generación de viajeros con 
-      experiencias que se sienten diferentes."
-    </p>
-    <p class="mv-body">
-      En Saballos Cruise creemos que el lujo no está solo en el destino, sino en todo lo que ocurre lejos de la orilla: las noches interminables, el océano abierto y los momentos que terminan convirtiéndose en historias. Cada viaje que diseñamos combina estética, libertad y experiencias memorables para quienes buscan más que unas vacaciones tradicionales. Porque no somos una agencia de viajes. Somos el inicio de algo que difícilmente vas a olvidar.
-    </p>
-    <div class="mv-progress" style="position:relative;bottom:auto;left:auto;margin-top:28px;">
-      <div class="mv-progress-bar"><div class="mv-progress-fill" id="mv-fill"></div></div>
-      <span class="mv-progress-label">Continúa →</span>
-    </div>
-  </div>
-</div>
+            <!-- PHOTO — bleeds taller than card -->
+            <div class="mv-mision-photo-wrap">
+              <img src="mision.png" alt="Bodas a bordo · Saballos Cruise">
+              <div class="mv-mision-photo-caption">
+                Momentos que duran para siempre · Bodas a bordo
+              </div>
+            </div>
+
+            <!-- GLASS CARD — text content -->
+            <div class="mv-mision-card reveal">
+              <p class="section-label">02 · Propósito</p>
+              <h2 class="section-title"><em>Misión</em></h2>
+              <div style="display:flex;align-items:center;gap:8px;margin:10px 0 20px;">
+                <div style="width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));"></div>
+                <div style="width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.8;"></div>
+                <div style="width:32px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></div>
+              </div>
+              <p class="mv-statement">
+                "Conectar a una nueva generación de viajeros con
+                experiencias que se sienten diferentes."
+              </p>
+              <p class="mv-body" style="color:#C4CEDC;text-shadow:0 1px 8px rgba(5,7,26,0.9);">
+                En Saballos Cruise creemos que el lujo no está solo en el destino, sino en todo lo que ocurre lejos de la orilla: las noches interminables, el océano abierto y los momentos que terminan convirtiéndose en historias. Cada viaje que diseñamos combina estética, libertad y experiencias memorables para quienes buscan más que unas vacaciones tradicionales. Porque no somos una agencia de viajes. Somos el inicio de algo que difícilmente vas a olvidar.
+              </p>
+              <div class="mv-progress" style="position:relative;bottom:auto;left:auto;margin-top:24px;">
+                <div class="mv-progress-bar"><div class="mv-progress-fill" id="mv-fill"></div></div>
+                <span class="mv-progress-label">Continúa →</span>
+              </div>
+            </div>
+
+          </div>
           <div class="mv-divider-line"></div>
         </div>
         <!-- PANEL VISIÓN -->
@@ -1608,31 +1848,36 @@
           <div class="grain"></div>
           <!-- Banner (kept on top) -->
           <img src="banner-right.png" style="position:absolute;left:0;top:0;height:100%;width:auto;object-fit:cover;z-index:5;">
-          <div style="position:relative;z-index:3;display:grid;grid-template-columns:minmax(240px,0.8fr) minmax(0,1.2fr);gap:26px;align-items:center;width:100%;max-width:none;padding-left:560px;box-sizing:border-box;">
-            <div style="position:relative;height:380px;border:1px solid rgba(201,168,76,0.2);overflow:hidden;margin:0;justify-self:start;align-self:stretch;">
-              <img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?w=800&q=80"
-                   alt="Crucero iluminado en puerto nocturno"
-                   style="width:100%;height:100%;object-fit:cover;opacity:0.75;filter:brightness(0.65) saturate(0.8);display:block;margin:0;">
-              <div style="position:absolute;inset:0;background:linear-gradient(225deg,rgba(5,7,26,0.5) 0%,transparent 60%);"></div>
-              <div style="position:absolute;bottom:14px;right:14px;background:rgba(5,7,26,0.75);border:1px solid rgba(201,168,76,0.25);padding:5px 12px;">
-                <p style="font-family:var(--font-body);font-size:8px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;">Puerto nocturno · Valencia</p>
-              </div>
-            </div>
-            <div>
-              <div class="mv-big-letter">V</div>
+
+          <!-- EDITORIAL LAYOUT (mirrored: card left, photo right) -->
+          <div class="mv-vision-layout" style="z-index:3;">
+
+            <!-- CARD — sits left, photo overlaps from the right -->
+            <div class="mv-vision-card reveal">
               <p class="section-label">02 · Propósito</p>
               <h2 class="section-title"><em>Visión</em></h2>
-              <div class="gold-bar"></div>
+              <div style="display:flex;align-items:center;gap:8px;margin:10px 0 20px;">
+                <div style="width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));"></div>
+                <div style="width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:0.8;"></div>
+                <div style="width:32px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);"></div>
+              </div>
               <p class="mv-statement">
-                "Ser la agencia de cruceros número uno para jóvenes adultos en Centroamérica
-                para 2030 — reconocida por transformar viajes en momentos que definen quiénes somos."
+                "Ser la agencia número uno para jóvenes adultos en Centroamérica — reconocida por transformar viajes en momentos que definen quiénes somos."
               </p>
-              <p class="mv-body">
+              <p class="mv-body" style="color:#C4CEDC;text-shadow:0 1px 8px rgba(5,7,26,0.9);">
                 Construir una comunidad de viajeros que no buscan solo destinos, sino transformarse.
-                Ser la razón por la que alguien dice: "ese viaje me cambió la vida."
+                Ser la razón por la que alguien dice: <em>"ese viaje me cambió la vida."</em>
               </p>
             </div>
+
+            <!-- PHOTO — bleeds taller than card, pulls left via negative margin -->
+            <div class="mv-vision-photo-wrap">
+              <img src="vision.jpg" alt="Horizonte de crucero · Saballos Cruise">
+              <div class="mv-vision-photo-caption">Horizontes sin límite · Saballos Cruise</div>
+            </div>
+
           </div>
+          <div class="mv-divider-line"></div>
         </div>
 
       </div>
@@ -1658,10 +1903,44 @@
         <div class="svc-vid-label"><p>▶ Fiesta en cubierta · Noche caribeña</p></div>
       </div>
       <div class="svc-content reveal" style="background: var(--navy2);">
+        <div class="svc-nautical">
+          <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(400, 80)" stroke="rgba(201,168,76,0.1)" fill="none" stroke-width="0.8">
+              <circle cx="0" cy="0" r="55"/>
+              <circle cx="0" cy="0" r="35"/>
+              <circle cx="0" cy="0" r="7"/>
+              <line x1="0" y1="-55" x2="0" y2="55"/>
+              <line x1="-55" y1="0" x2="55" y2="0"/>
+              <line x1="-39" y1="-39" x2="39" y2="39"/>
+              <line x1="39" y1="-39" x2="-39" y2="39"/>
+              <polygon points="0,-35 -4,-18 0,-22 4,-18" fill="rgba(201,168,76,0.12)" stroke="none"/>
+              <text x="-4" y="-60" font-family="Arial" font-size="7" fill="rgba(201,168,76,0.18)" letter-spacing="1">N</text>
+            </g>
+            <line x1="0" y1="400" x2="500" y2="50"  stroke="rgba(201,168,76,0.05)" stroke-width="0.8"/>
+            <line x1="0" y1="450" x2="500" y2="100" stroke="rgba(201,168,76,0.04)" stroke-width="0.5"/>
+            <circle cx="80"  cy="350" r="1.5" fill="rgba(201,168,76,0.15)"/>
+            <circle cx="200" cy="200" r="1.5" fill="rgba(201,168,76,0.1)"/>
+            <g stroke="rgba(201,168,76,0.1)" stroke-width="0.5">
+              <line x1="75"  y1="350" x2="85"  y2="350"/>
+              <line x1="80"  y1="345" x2="80"  y2="355"/>
+              <line x1="195" y1="200" x2="205" y2="200"/>
+              <line x1="200" y1="195" x2="200" y2="205"/>
+            </g>
+            <path d="M 80 350 Q 150 260 200 200" stroke="rgba(201,168,76,0.05)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+          </svg>
+        </div>
         <div class="svc-number">01</div>
         <p class="section-label">Nuestros Productos</p>
         <div class="svc-tag">El más popular</div>
-        <h3 class="svc-title">Caribe &<br><em>Las Bahamas</em></h3>
+        <div class="svc-title-wrap">
+          <h3 class="svc-title">Caribe &<br><em>Las Bahamas</em></h3>
+          <div class="svc-tooltip">
+            <span class="svc-tooltip-title">Paquetes incluidos</span>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>All Inclusive</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>Spa & Bienestar</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Excursiones en Tierra</div>
+          </div>
+        </div>
         <p class="svc-desc">
           Noches que no terminan, playas que no tienen nombre en el mapa, y una fiesta
           que el océano organiza solo para ti. El Caribe no es un destino — es un estado mental.
@@ -1676,9 +1955,43 @@
     <!-- PRODUCTO 2: Europa & Mediterráneo -->
     <div class="svc-block layout-right" id="producto-europa">
       <div class="svc-content reveal" style="background: var(--navy3);">
+        <div class="svc-nautical">
+          <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="100" x2="500" y2="450" stroke="rgba(201,168,76,0.06)" stroke-width="0.8"/>
+            <line x1="0" y1="150" x2="500" y2="500" stroke="rgba(201,168,76,0.04)" stroke-width="0.5"/>
+            <g transform="translate(80, 400)" stroke="rgba(201,168,76,0.1)" fill="none" stroke-width="0.8">
+              <circle cx="0" cy="0" r="40"/>
+              <circle cx="0" cy="0" r="25"/>
+              <circle cx="0" cy="0" r="5"/>
+              <line x1="0" y1="-40" x2="0" y2="40"/>
+              <line x1="-40" y1="0" x2="40" y2="0"/>
+              <line x1="-28" y1="-28" x2="28" y2="28"/>
+              <line x1="28" y1="-28" x2="-28" y2="28"/>
+              <polygon points="0,-25 -3,-12 0,-16 3,-12" fill="rgba(201,168,76,0.12)" stroke="none"/>
+            </g>
+            <circle cx="300" cy="150" r="1.5" fill="rgba(201,168,76,0.15)"/>
+            <circle cx="420" cy="300" r="1.5" fill="rgba(201,168,76,0.1)"/>
+            <g stroke="rgba(201,168,76,0.1)" stroke-width="0.5">
+              <line x1="295" y1="150" x2="305" y2="150"/>
+              <line x1="300" y1="145" x2="300" y2="155"/>
+              <line x1="415" y1="300" x2="425" y2="300"/>
+              <line x1="420" y1="295" x2="420" y2="305"/>
+            </g>
+            <path d="M 300 150 Q 380 220 420 300" stroke="rgba(201,168,76,0.05)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+          </svg>
+        </div>
         <div class="svc-number">02</div>
         <p class="section-label">Nuestros Productos</p>
-        <h3 class="svc-title">Europa &<br><em>Mediterráneo</em></h3>
+        <div class="svc-title-wrap">
+          <h3 class="svc-title">Europa &<br><em>Mediterráneo</em></h3>
+          <div class="svc-tooltip">
+            <span class="svc-tooltip-title">Paquetes incluidos</span>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>All Inclusive</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>Spa & Bienestar</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Paquete de Bodas</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Excursiones en Tierra</div>
+          </div>
+        </div>
         <p class="svc-desc">
           Barcelona al amanecer. Roma desde el mar. Santorini con el vino en la mano.
           El Mediterráneo es el crucero de los que tienen algo que demostrar —
@@ -1710,10 +2023,35 @@
         <!-- exotico.mp4 -->
         <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;pointer-events:none;"><source src="exotico.mp4" type="video/mp4"></video>
         <div class="svc-full-overlay">
+          <div class="svc-nautical">
+            <svg viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="300" x2="1000" y2="50"  stroke="rgba(201,168,76,0.05)" stroke-width="1"/>
+              <line x1="0" y1="350" x2="1000" y2="100" stroke="rgba(201,168,76,0.03)" stroke-width="0.5"/>
+              <circle cx="150" cy="180" r="1.5" fill="rgba(201,168,76,0.15)"/>
+              <circle cx="400" cy="300" r="1.5" fill="rgba(201,168,76,0.12)"/>
+              <circle cx="600" cy="120" r="1.5" fill="rgba(201,168,76,0.1)"/>
+              <g stroke="rgba(201,168,76,0.1)" stroke-width="0.5">
+                <line x1="145" y1="180" x2="155" y2="180"/>
+                <line x1="150" y1="175" x2="150" y2="185"/>
+                <line x1="395" y1="300" x2="405" y2="300"/>
+                <line x1="400" y1="295" x2="400" y2="305"/>
+              </g>
+              <path d="M 150 180 Q 280 240 400 300" stroke="rgba(201,168,76,0.05)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+              <path d="M 400 300 Q 500 200 600 120" stroke="rgba(201,168,76,0.04)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+            </svg>
+          </div>
           <div class="svc-full-content reveal">
             <div class="svc-number" style="font-size: 90px; margin-bottom: -30px;">03</div>
             <p class="section-label">Nuestros Productos</p>
-            <h3 class="svc-title" style="font-size: 38px;">Cruceros<br><em>Exóticos</em></h3>
+            <div class="svc-title-wrap">
+              <h3 class="svc-title" style="font-size: 38px;">Cruceros<br><em>Exóticos</em></h3>
+              <div class="svc-tooltip">
+                <span class="svc-tooltip-title">Paquetes incluidos</span>
+                <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>All Inclusive</div>
+                <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Excursiones en Tierra</div>
+                <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>Spa & Bienestar</div>
+              </div>
+            </div>
             <p class="svc-desc">
               Japón. Tailandia. Los Fiordos de Noruega. Lugares donde el idioma no importa
               porque el asombro es universal. Para los que ya vieron el Caribe y quieren más.
@@ -1742,10 +2080,52 @@
         <div class="svc-vid-label"><p>▶ Salida al amanecer · Vuelta al Mundo</p></div>
       </div>
       <div class="svc-content reveal" style="background: var(--navy);">
+        <div class="svc-nautical">
+          <svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="50"  x2="500" y2="400" stroke="rgba(201,168,76,0.06)" stroke-width="0.8"/>
+            <line x1="0" y1="100" x2="500" y2="450" stroke="rgba(201,168,76,0.04)" stroke-width="0.5"/>
+            <g transform="translate(350, 280)" stroke="rgba(201,168,76,0.11)" fill="none" stroke-width="1">
+              <circle cx="0" cy="0" r="80"/>
+              <circle cx="0" cy="0" r="55"/>
+              <circle cx="0" cy="0" r="10"/>
+              <line x1="0" y1="-80" x2="0" y2="80"/>
+              <line x1="-80" y1="0" x2="80" y2="0"/>
+              <line x1="-57" y1="-57" x2="57" y2="57"/>
+              <line x1="57" y1="-57" x2="-57" y2="57"/>
+              <line x1="0"   y1="-80" x2="0"   y2="-68" stroke-width="1.5"/>
+              <line x1="0"   y1="68"  x2="0"   y2="80"  stroke-width="1.5"/>
+              <line x1="-80" y1="0"   x2="-68" y2="0"   stroke-width="1.5"/>
+              <line x1="68"  y1="0"   x2="80"  y2="0"   stroke-width="1.5"/>
+              <polygon points="0,-55 -6,-25 0,-32 6,-25" fill="rgba(201,168,76,0.15)" stroke="none"/>
+              <text x="-4" y="-86" font-family="Arial" font-size="9" fill="rgba(201,168,76,0.22)" letter-spacing="1">N</text>
+            </g>
+            <circle cx="60"  cy="100" r="2"   fill="rgba(201,168,76,0.18)"/>
+            <circle cx="180" cy="200" r="1.5" fill="rgba(201,168,76,0.14)"/>
+            <circle cx="100" cy="380" r="1.5" fill="rgba(201,168,76,0.1)"/>
+            <g stroke="rgba(201,168,76,0.12)" stroke-width="0.5">
+              <line x1="55"  y1="100" x2="65"  y2="100"/>
+              <line x1="60"  y1="95"  x2="60"  y2="105"/>
+              <line x1="175" y1="200" x2="185" y2="200"/>
+              <line x1="180" y1="195" x2="180" y2="205"/>
+            </g>
+            <path d="M 60 100 Q 130 150 180 200"  stroke="rgba(201,168,76,0.06)" stroke-width="1" stroke-dasharray="4 6" fill="none"/>
+            <path d="M 180 200 Q 140 290 100 380" stroke="rgba(201,168,76,0.05)" stroke-width="1" stroke-dasharray="4 6" fill="none"/>
+          </svg>
+        </div>
         <div class="svc-number">04</div>
         <p class="section-label">Nuestros Productos</p>
         <div class="svc-tag">Experiencia Máxima</div>
-        <h3 class="svc-title">The Ultimate<br><em>World Cruise</em></h3>
+        <div class="svc-title-wrap">
+          <h3 class="svc-title">The Ultimate<br><em>World Cruise</em></h3>
+          <div class="svc-tooltip">
+            <span class="svc-tooltip-title">Paquetes incluidos</span>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>All Inclusive</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span>Spa & Bienestar</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>Paquete de Bodas</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Excursiones en Tierra</div>
+            <div class="svc-tooltip-item"><span style="display:flex;align-items:center;flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align:middle;color:var(--gold);flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>Ultimate Package</div>
+          </div>
+        </div>
         <p class="svc-desc">
           La vuelta al mundo completa. 6 continentes. Más de 50 puertos. Una sola pregunta:
           ¿estás listo para desaparecer del mundo durante meses y regresar siendo otra persona?
@@ -1778,10 +2158,10 @@
       <h2 class="section-title">Nuestros <em>Proveedores</em></h2>
       <div class="gold-bar"></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;" class="reveal">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;">
 
       <!-- CARD 1 — Royal Caribbean -->
-      <div class="prov-card-new">
+      <div class="prov-card-new reveal" style="transition-delay:0.1s;">
         <div class="prov-card-logo"><img src="Royal_Caribbean_logo.png" alt="Royal Caribbean"></div>
         <div class="prov-card-line"></div>
         <h3 class="prov-card-name">Royal Caribbean Intl.</h3>
@@ -1792,7 +2172,7 @@
       </div>
 
       <!-- CARD 2 — Norwegian Cruise Line -->
-      <div class="prov-card-new">
+      <div class="prov-card-new reveal" style="transition-delay:0.2s;">
         <div class="prov-card-logo"><img src="Norwegian-Cruise-Line-Logo.png" alt="Norwegian Cruise Line"></div>
         <div class="prov-card-line"></div>
         <h3 class="prov-card-name">Norwegian Cruise Line</h3>
@@ -1803,7 +2183,7 @@
       </div>
 
       <!-- CARD 3 — MSC Cruceros -->
-      <div class="prov-card-new">
+      <div class="prov-card-new reveal" style="transition-delay:0.3s;">
         <div class="prov-card-logo"><img src="MSC_Cruises_Logo.png" alt="MSC Cruceros"></div>
         <div class="prov-card-line"></div>
         <h3 class="prov-card-name">MSC Cruceros</h3>
@@ -1825,7 +2205,7 @@
   <div id="clientes-wrapper">
     <div id="clientes-sticky">
 
-      <div class="clientes-header">
+      <div class="clientes-header reveal">
         <p class="section-label">05 · Voces Reales</p>
         <h2 class="section-title">Nuestros <em>Clientes</em></h2>
         <div class="gold-bar" style="margin-bottom: 0;"></div>
@@ -1835,10 +2215,7 @@
 
         <!-- CLIENTE 1 -->
         <div class="client-panel">
-          <div class="client-bg client-bg-1" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1400&q=80');background-size:cover;background-position:center;"></div>
-          <!-- REEMPLAZAR con foto real:
-          <img src="https://images.unsplash.com/photo-XXXXXXX?w=1400&q=80" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;">
-          -->
+          <div class="client-bg client-bg-1" style="background-image:url('Maria%20Rodriguez.png');background-size:cover;background-position:center center;"></div>
           <div class="client-overlay"></div>
           <div class="scanlines"></div>
           <div class="client-content">
@@ -1847,7 +2224,7 @@
               "La noche que bailamos en cubierta bajo las estrellas... eso no tiene precio."
             </p>
             <div class="client-info">
-              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="María Rodríguez"></div>
+              <div class="client-avatar"><img src="Maria%20Rodriguez.png" alt="María Rodríguez"></div>
               <div>
                 <p class="client-name">María Rodríguez</p>
                 <p class="client-route">Caribe · 7 noches · Paquete All In</p>
@@ -1862,7 +2239,7 @@
 
         <!-- CLIENTE 2 -->
         <div class="client-panel">
-          <div class="client-bg client-bg-2" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-bg client-bg-2" style="background-image:url('Carlos%20Lopez.png');background-size:cover;background-position:center top;"></div>
           <div class="client-overlay"></div>
           <div class="scanlines"></div>
           <div class="client-content">
@@ -1871,7 +2248,7 @@
               "Saballos Cruise no solo nos llevó a Europa, nos hizo sentir que pertenecíamos ahí."
             </p>
             <div class="client-info">
-              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Carlos López"></div>
+              <div class="client-avatar"><img src="Carlos%20Lopez.png" alt="Carlos López"></div>
               <div>
                 <p class="client-name">Carlos López</p>
                 <p class="client-route">Mediterráneo · 14 noches · Paquete Spa</p>
@@ -1886,7 +2263,7 @@
 
         <!-- CLIENTE 3 -->
         <div class="client-panel">
-          <div class="client-bg client-bg-3" style="background-image:url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-bg client-bg-3" style="background-image:url('Ana%20Fuentes.png');background-size:cover;background-position:center top;"></div>
           <div class="client-overlay"></div>
           <div class="scanlines"></div>
           <div class="client-content">
@@ -1895,7 +2272,7 @@
               "Nos casamos en el crucero con el mar de fondo y la luna arriba. Imposible olvidarlo."
             </p>
             <div class="client-info">
-              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80" alt="Ana Fuentes"></div>
+              <div class="client-avatar"><img src="Ana%20Fuentes.png" alt="Ana Fuentes"></div>
               <div>
                 <p class="client-name">Ana Fuentes</p>
                 <p class="client-route">Bahamas · 5 noches · Paquete de Bodas</p>
@@ -1910,7 +2287,7 @@
 
         <!-- CLIENTE 4 -->
         <div class="client-panel">
-          <div class="client-bg client-bg-4" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=1400&q=80');background-size:cover;background-position:center;"></div>
+          <div class="client-bg client-bg-4" style="background-image:url('Javier%20Perez.png');background-size:cover;background-position:center center;"></div>
           <div class="client-overlay"></div>
           <div class="scanlines"></div>
           <div class="client-content">
@@ -1919,7 +2296,7 @@
               "120 días dando la vuelta al mundo. Regresé siendo otra persona. Gracias, Saballos."
             </p>
             <div class="client-info">
-              <div class="client-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Javier Pérez"></div>
+              <div class="client-avatar"><img src="Javier%20Perez.png" alt="Javier Pérez"></div>
               <div>
                 <p class="client-name">Javier Pérez</p>
                 <p class="client-route">World Cruise · 120 noches · Ultimate</p>
@@ -1962,6 +2339,35 @@
       </iframe>
     </div>
     <div class="contact-info reveal">
+      <div class="contact-nautical">
+        <svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <!-- Diagonal navigation lines -->
+          <line x1="0" y1="300" x2="500" y2="80"  stroke="rgba(201,168,76,0.07)" stroke-width="0.8"/>
+          <line x1="0" y1="350" x2="500" y2="130" stroke="rgba(201,168,76,0.04)" stroke-width="0.5"/>
+          <line x1="0" y1="80"  x2="500" y2="320" stroke="rgba(201,168,76,0.04)" stroke-width="0.5"/>
+          <!-- Location pin marker -->
+          <g transform="translate(250, 135)" stroke="rgba(201,168,76,0.3)" fill="none" stroke-width="1">
+            <circle cx="0" cy="0" r="5" fill="rgba(201,168,76,0.25)"/>
+            <circle cx="0" cy="0" r="12" stroke-dasharray="2 3"/>
+            <line x1="0" y1="5" x2="0" y2="20"/>
+          </g>
+          <!-- Coordinate dots -->
+          <circle cx="80"  cy="80"  r="1.5" fill="rgba(201,168,76,0.18)"/>
+          <circle cx="400" cy="300" r="1.5" fill="rgba(201,168,76,0.15)"/>
+          <circle cx="420" cy="100" r="1.5" fill="rgba(201,168,76,0.12)"/>
+          <g stroke="rgba(201,168,76,0.12)" stroke-width="0.5">
+            <line x1="75"  y1="80"  x2="85"  y2="80"/>
+            <line x1="80"  y1="75"  x2="80"  y2="85"/>
+            <line x1="395" y1="300" x2="405" y2="300"/>
+            <line x1="400" y1="295" x2="400" y2="305"/>
+            <line x1="415" y1="100" x2="425" y2="100"/>
+            <line x1="420" y1="95"  x2="420" y2="105"/>
+          </g>
+          <!-- Dashed route connecting dots -->
+          <path d="M 80 80 Q 160 130 250 135"  stroke="rgba(201,168,76,0.06)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+          <path d="M 420 100 Q 350 120 250 135" stroke="rgba(201,168,76,0.05)" stroke-width="0.8" stroke-dasharray="4 6" fill="none"/>
+        </svg>
+      </div>
       <p class="section-label">06 · Encuéntranos</p>
       <h2 class="section-title">Contác<em>tenos</em></h2>
       <div class="gold-bar"></div>
@@ -2015,31 +2421,27 @@
        FOOTER
   ============================================= -->
   <footer>
-    <p class="footer-logo">Saballos Cruise</p>
-    <p class="footer-umg">
-      "Forjando el Carácter del Futuro Profesional"<br>
+    <p class="ft-logo">Saballos Cruise</p>
+    <p class="ft-umg">
+      “Y conoceréis la verdad y la verdad os hará libres”.<br>
       Universidad Mariano Gálvez de Guatemala
     </p>
-    <div class="footer-socials">
-      <!-- Facebook UMG -->
-      <a href="https://www.facebook.com/u.marianogalvez/" target="_blank" class="footer-social" title="Facebook UMG">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    <div class="ft-socials">
+      <a href="https://www.facebook.com/u.marianogalvez/" target="_blank" rel="noopener noreferrer" class="ft-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
       </a>
-      <!-- Instagram UMG -->
-      <a href="https://www.instagram.com/marianogalvez/" target="_blank" class="footer-social" title="Instagram UMG">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <a href="https://www.instagram.com/marianogalvez/" target="_blank" rel="noopener noreferrer" class="ft-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       </a>
-      <!-- YouTube UMG -->
-      <a href="https://www.youtube.com/@umarianogalvez" target="_blank" class="footer-social" title="YouTube UMG">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <a href="https://www.youtube.com/@umarianogalvez" target="_blank" rel="noopener noreferrer" class="ft-btn" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       </a>
-      <!-- Twitter/X UMG -->
-      <a href="https://twitter.com/marianogalvez" target="_blank" class="footer-social" title="Twitter / X UMG">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+      <a href="https://twitter.com/marianogalvez" target="_blank" rel="noopener noreferrer" class="ft-btn" aria-label="X">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
       </a>
     </div>
-    <p class="footer-anchor">⚓</p>
-    <p class="footer-copy">© 2025 Saballos Cruise · Todos los derechos reservados · Derick Andre Saballos Lopez · 0900-26-11280</p>
+    <p class="ft-anchor">⚓</p>
+    <p class="ft-copy">© 2025 Saballos Cruise · Todos los derechos reservados · Derick Andre Saballos Lopez · 0900-26-11280</p>
   </footer>
 
 
@@ -2059,7 +2461,7 @@
     });
 
     // Expand ring on hover over clickable elements
-    document.querySelectorAll('a, button, .promo-cta, .svc-play-ring, .clink, .prov-cell, .music-player').forEach(el => {
+    document.querySelectorAll('a, button, .promo-cta, .clink, .prov-cell, .music-player').forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursorRing.style.width       = '54px';
         cursorRing.style.height      = '54px';
@@ -2169,31 +2571,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
